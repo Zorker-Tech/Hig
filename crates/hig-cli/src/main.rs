@@ -3,6 +3,7 @@
 mod benchmark;
 mod cli;
 mod commands;
+mod interactive;
 mod output;
 mod runtime;
 

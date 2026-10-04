@@ -87,11 +87,23 @@ hig-mcp-server --smoke
 
 ### CLI
 
+Start the guided terminal interface with `hig` in an interactive terminal or
+run `hig tui`. The existing subcommands remain available for scripts, CI, and
+IDE/MCP integrations; a non-interactive invocation without arguments does not
+start the TUI.
+
 ```bash
+hig tui
 hig pack <dir> -o <archive.hig> --password <password>
 hig inspect <archive.hig> --password <password> --json
 hig unpack <archive.hig> -d <output-dir> --password <password>
 ```
+
+The TUI covers archives, project snapshots, repository history, Recovery Vault,
+cache maintenance, and daemon/session controls. Passwords are entered through
+masked prompts and passed to the existing CLI command over stdin. Destructive
+overwrite, daemon-stop, and session-clear actions require explicit confirmation;
+garbage-collection menus run report-only previews.
 
 Project mode:
 

@@ -6,6 +6,7 @@ use crate::runtime::{
 
 use clap::{Parser, Subcommand, ValueEnum};
 use hig_core::KdfProfile;
+use std::io::IsTerminal;
 use std::path::PathBuf;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
@@ -68,6 +69,8 @@ impl ReportFlags {
 
 #[derive(Debug, Subcommand)]
 enum Command {
+    /// Launch the guided terminal interface.
+    Tui,
     Init {
         #[arg(default_value = ".")]
         dir: PathBuf,
@@ -714,8 +717,17 @@ pub(crate) enum RepositoryTagCommand {
 }
 
 pub(crate) fn run() -> anyhow::Result<()> {
+    if std::env::args_os().len() == 1
+        && std::io::stdin().is_terminal()
+        && std::io::stdout().is_terminal()
+        && std::io::stderr().is_terminal()
+    {
+        return crate::interactive::run();
+    }
+
     let cli = Cli::parse();
     match cli.command {
+        Command::Tui => crate::interactive::run()?,
         Command::Init {
             dir,
             cache_dir,

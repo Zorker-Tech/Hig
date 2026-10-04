@@ -32,7 +32,14 @@ or later.
 
 ## Common CLI Commands
 
+The CLI supports both guided and non-interactive use. Run `hig tui` to open the
+menu, or run `hig` with no arguments in an interactive terminal. Explicit
+subcommands remain suitable for scripts, CI, and IDE/MCP integrations; they do
+not prompt for input. TUI passwords use masked prompts and stdin, while
+garbage-collection actions remain report-only previews.
+
 ```bash
+hig tui
 hig --version
 hig init /path/to/project --cache-dir /path/to/cache
 hig project rebuild /path/to/project --wait

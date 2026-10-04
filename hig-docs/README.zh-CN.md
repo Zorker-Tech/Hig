@@ -45,11 +45,16 @@ be8ea2247ee552eeaa794e1400c69ce69f433d76ff02736a88c0cc3d1f4862de
 
 ### CLI
 
+在交互式终端中直接运行 `hig`，或运行 `hig tui`，即可进入向导式终端界面。原有子命令继续保留，适用于脚本、CI 和 IDE/MCP；无参数但不具备交互终端时不会启动 TUI。
+
 ```bash
+hig tui
 hig pack <dir> -o <archive.hig> --password <password>
 hig inspect <archive.hig> --password <password> --json
 hig unpack <archive.hig> -d <output-dir> --password <password>
 ```
+
+TUI 覆盖归档、项目快照、仓库历史、Recovery Vault、cache 维护和 daemon/session 管理。密码通过隐藏输入并经 stdin 交给现有 CLI 命令，不会放入进程参数。覆盖写入、停止 daemon 和清除 session 等操作需要明确确认；垃圾回收菜单只执行 report-only 预览。
 
 Project Mode：
 
